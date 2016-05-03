@@ -3,7 +3,7 @@
 		<div class="col-md-4">
 			<div class="well center-it">
 				<p><%= image_tag product.image.url, width: "100" %></p>
-				<p><%= product.name %></p>
+				<p><%= link_to product.name, product %></p>
 				<p><%= number_to_currency product.price %></p>
 
 				<p>
@@ -15,7 +15,7 @@
 		</div>
 		<div class="modal fade" id="myModal_<%= product.id %>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 		  <div class="modal-dialog" role="document">
-		    <div class="modal-content">
+		    <div class="modal-content center-it">
 		      <div class="modal-header">
 		        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 		        <h4 class="modal-title" id="myModalLabel">
@@ -29,7 +29,11 @@
 		        <p><%= product.description %></p>
 		      </div>
 		      <div class="modal-footer">
-		        <button type="button" class="btn btn-primary">Add to Cart</button>
+		        <%= form_tag(add_to_cart_path) do %>
+		        	<%= number_field_tag :quantity, nil, placeholder: "How Many?" %>
+		        	<%= hidden_field_tag :product_id, product.id %>
+		        	<%= submit_tag "Add to Cart", class: "btn btn-primary" %>
+		        <% end %>
 		      </div>
 		    </div>
 		  </div>

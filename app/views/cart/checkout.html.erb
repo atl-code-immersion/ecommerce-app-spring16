@@ -1,0 +1,12 @@
+<h3>Thanks for ordering with us!</h3>
+<p>
+	Let's review your order:
+</p>
+
+<% @order.order_items.each do |k,v| %>
+	<p><%= Product.find(k).name %>, <%= v %></p>
+<% end %>
+
+<p>
+	<strong>Order Total:</strong> <%= number_to_currency @order.grand_total %>
+</p>

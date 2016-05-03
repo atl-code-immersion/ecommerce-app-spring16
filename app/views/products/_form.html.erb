@@ -11,38 +11,29 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
+  <div class="form-group">
+    <%= f.text_field :name, placeholder: "Product Name", class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :price %><br>
-    <%= f.text_field :price %>
+  <div class="form-group">
+    <%= f.text_field :price, placeholder: "Price Per Item (no dollar sign)", class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :quantity %><br>
-    <%= f.number_field :quantity %>
+  <div class="form-group">
+    <%= f.number_field :quantity, placeholder: "Quantity In Stock", class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
+  <div class="form-group">
+    <%= f.text_area :description, placeholder: "Product description", class: "form-control", rows: 10 %>
   </div>
-  <div class="field">
-    <%= f.label :brand %><br>
-    <%= f.text_field :brand %>
+  <div class="form-group">
+    <%= f.text_field :brand, placeholder: "Brand", class: "form-control" %>
   </div>
-  <div class="field">
-    <%= f.label :rating %><br>
-    <%= f.number_field :rating %>
-  </div>
-  <div class="field">
+  <div class="form-group">
     <%= f.select(:category_id, @categories.collect { |c| [ c.name, c.id ]}, { include_blank: "Select a category" }) %>
   </div>
-  <div class="field">
+  <div class="form-group">
     <strong>Product Image:</strong>
     <%= f.file_field :image %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: "btn btn-success" %>
   </div>
 <% end %>
