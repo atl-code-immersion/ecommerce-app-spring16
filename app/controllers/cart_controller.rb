@@ -2,7 +2,7 @@ class CartController < ApplicationController
 
 	include CartHelper
 
-	before_filter :authenticate_user!, except: [:add_to_cart, :view_order]
+	before_filter :authenticate_user!, except: [:add_to_cart, :view_order, :edit_line_item, :remove_from_cart]
 
   def add_to_cart
   	product = Product.find(params[:product_id])
@@ -10,12 +10,16 @@ class CartController < ApplicationController
   	if quantity_check?(product, params[:quantity].to_i)
   		return
   	else
-	  	line_item = LineItem.create(product_id: params[:product_id], quantity: params[:quantity])
+	  	@line_item = LineItem.create(product_id: params[:product_id], quantity: params[:quantity])
 
-	  	line_item.line_item_total = line_item.quantity * line_item.product.price
-	  	line_item.save
+	  	@line_item.line_item_total = @line_item.quantity * @line_item.product.price
+	  	@line_item.save
 
-	  	redirect_to root_path
+      @li_len = LineItem.all.length
+      @cart_total = 0
+      LineItem.all.each do |li|
+        @cart_total += li.line_item_total
+      end
 	  end
   end
 

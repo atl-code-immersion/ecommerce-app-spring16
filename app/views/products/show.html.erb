@@ -23,5 +23,9 @@
     </p>
   </div>
 </div>
-
-<%= link_to 'Edit', edit_product_path(@product), class: "btn btn-warning" %>
+<p>
+  <%= link_to "Back", :back %>
+</p>
+<p>
+  <%= link_to 'Edit', edit_product_path(@product), class: "btn btn-warning" if can? :update, Product %>
+</p>

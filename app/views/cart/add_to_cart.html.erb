@@ -1,2 +1,14 @@
-<h1>Cart#add_to_cart</h1>
-<p>Find me in app/views/cart/add_to_cart.html.erb</p>
+<div class="row mtop-40">
+	<div class="col-md-3 green-text">
+		<i class="fa fa-check fa-2x"></i> <%= image_tag @line_item.product.image.url, width: "50", alt: @line_item.product.name %> Added to Cart
+	</div>
+	<div class="col-md-9">
+		<div>
+			<strong>Cart subtotal</strong>(<%= pluralize(@li_len, 'item') %>): <span class="red-text"><%= number_to_currency @cart_total %></span>
+		</div>
+		<div class="pull-right">
+			<%= link_to "Cart", view_order_path, class: "btn btn-default" %> 
+			<%= link_to "Proceed to checkout", checkout_path, class: "btn btn-warning" %>
+		</div>
+	</div>
+</div>
