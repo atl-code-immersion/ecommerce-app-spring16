@@ -30,6 +30,10 @@ gem 'devise'
 gem 'cancancan'
 gem 'carrierwave'
 
+gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
+gem 'figaro'
+gem 'certified'
+
 group :development do
 	gem 'better_errors'
 end

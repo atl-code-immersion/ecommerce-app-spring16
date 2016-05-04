@@ -13,6 +13,13 @@ class CartController < ApplicationController
 	  	@line_item = LineItem.create(product_id: params[:product_id], quantity: params[:quantity])
 
 	  	@line_item.line_item_total = @line_item.quantity * @line_item.product.price
+
+      if user_signed_in?
+        @line_item.customer_key = current_user.id
+      else
+        @line_item.customer_key = remote_ip
+      end
+
 	  	@line_item.save
 
       @li_len = LineItem.all.length
@@ -40,7 +47,11 @@ class CartController < ApplicationController
   end
 
   def view_order
-  	@line_items = LineItem.all
+    if user_signed_in?
+    	@line_items = LineItem.where(customer_key: current_user.id)
+    else
+      @line_items = LineItem.where(customer_key: remote_ip)
+    end
   end
 
   def checkout
@@ -64,6 +75,27 @@ class CartController < ApplicationController
   	end
 
   	line_items.destroy_all
+  end
+
+  def order_complete
+    @order = Order.find(params[:order_id])
+    @amount = (@order.grand_total.to_f.round(2) * 100).to_i
+
+    customer = Stripe::Customer.create(
+      :email => current_user.email,
+      :card => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :customer => customer.id,
+      :amount => @amount,
+      :description => 'Rails Stripe customer',
+      :currency => 'usd'
+    )
+
+    rescue Stripe::CardError => e
+    flash[:error] = e.message
+    redirect_to charges_path
   end
 end
 
