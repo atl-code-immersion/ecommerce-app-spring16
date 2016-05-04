@@ -7,3 +7,9 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 categories = Category.create([{ name: 'Computers' },{ name: 'Smart Phones' },{ name: 'Televisions' },{ name: 'Game Consoles' }, { name: 'Video Games' }, { name: 'Blu-ray & DVD Players' },{ name: 'Other' }])
+
+products = Product.create([
+	{ name: 'MacBook Pro', brand: 'Apple' }, 
+	{ name: 'iPhone 6', brand: 'Apple' },
+	{ name: 'Xbox One', brand: 'Microsoft' }
+	])
